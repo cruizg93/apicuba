@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>API CUBA</title>
+	<meta name="description" content="Get the api information from aduanas cuba, but orgnizable">
+   	<meta name="author" content="Cristian Ruiz (cruizg93)">
+	<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Lobster">
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+	<link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+	
+	<style type="text/css">
+		.nav-pills{
+			font-family: Lobster;
+			font-size:1.7em;
+		}
+		body{background-color: #f1f1f1;}
+
+		*{
+			text-transform: uppercase;
+		}
+		h2{text-align: center;}
+		img{width: 50px;}
+
+	</style>
+	<script type="text/javascript" src="{{url_for('static',filename='js/jquery-3.1.1.min.js')}}"></script>
+  	<script type="text/javascript" src="{{url_for('static',filename='js/spin.min.js')}}"></script>
+  	<script type="text/javascript" src="{{url_for('static',filename='js/main.js')}}"></script>
+   	<script type="text/javascript" src="{{url_for('static',filename='js/url.min.js')}}"></script>
+   	<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+</head>
+<body>
+<span id="currentLenguage" style="visibility: hidden;">{{_('en')}}</span>
+<div class="container-fluid">
+	<ul class="nav nav-pills">
+		<li>
+			<a href="#">Cristian Ruiz</a>
+		</li>
+		<li class="pull-right">
+			<a href="#">@Cruizg93</a>
+		</li>
+	</ul>	
+	<div class="container">
+		<div class="row">
+			<div class="col-xs-12 panel panel-login">
+				<div class="pull-right">
+					<form id="languageForm" action="/i18n" method="post">
+						<input name="toggle_i18n" id="toggle_i18n" type="checkbox" checked data-toggle="toggle" data-on="<img src='{{url_for('static',filename='img/us.png')}}' style='width:20px;'/>" data-off="<img 
+					src='{{url_for('static',filename='img/cuban.ico')}}' style='width:20px;'/>">
+						<input type="hidden" name="lang_code" id="lang_code">
+					</form>
+				</div>
+				<H2><img src="{{url_for('static',filename='img/us.png')}}"/>   API CUBA   <img src="{{url_for('static',filename='img/cuban.ico')}}"/></H2>
+				<form action="" method="POST" name="apiForm" id="apiForm" autocomplete="off" >
+					<div class="form-group row">
+						<label for="dateFrom" class="col-sm-2 col-form-label">*{{_('From')}}:</label>
+						<div class="col-sm-4"><input class="form-control" type="date" name="dateFrom" placeholder="desde" id="dateFrom" /></div>
+						<label for="dateTo" class="col-sm-2 col-form-label">*{{_('To')}}:</label>
+						<div class="col-sm-4"><input class="form-control" type="date" name="dateTo" placeholder="hasta" id="dateTo"  /></div>
+					</div>
+					 <div class="form-group row">
+						<label for="cityFrom" class="col-sm-2 col-form-label">{{_('City From')}}:</label>
+						<div class="col-sm-4"><input class="form-control" type="text" name="cityFrom" placeholder="TPA" id="cityFrom"></div>
+						<label for="cityFrom" class="col-sm-2 col-form-label">*{{_('City To')}}:</label>
+						<div class="col-sm-4">
+							<select id="cityTo" name="cityTo" title="Seleccionar Puerto de la b&amp;uacutesqueda" datasrc="" class="form-control">
+			                    <option value="hav">HAV - Habana</option>
+			                    <option value="vra">VRA - Varadero</option>
+			                    <option value="snu">SNU - Santa Clara</option>
+			                    <option value="cfg">CFG - Cienfuegos</option>
+			                    <option value="avi">AVI - Ciego Avila</option>
+			                    <option value="ccc">CCC - Cayo Coco</option>
+			                    <option value="cyo">CYO - Cayo Largo</option>
+			                    <option value="cmw">CMW - Camaguey</option>
+			                    <option value="hog">HOG - Holguin</option>
+			                    <option value="mzo">MZO - Manzanillo</option>
+			                    <option value="scu">SCU - Santiago Cuba</option>
+			               </select>
+			            </div>
+					</div>
+					<div class="spiner" id="spiner"></div>
+					<div class="form-group row">
+						<div class="col-sm-12">
+							<button type="button" id="btnSearch" class="btn btn-primary">{{_('Search')}}</button>
+						</div>
+					</div>
+				</form>
+				<div class="form-group row">
+					<div class="col-sm-12">
+						<h4>*{{_('Mandatory fields -- Field [TO] it can not be later than tomorrow')}}</h4>
+						<label class="" style="color:red;font-weight: bold;" id="errorMsg"></label>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row" >
+			<div class="col-xs-24" id="dataTable">
+				
+			</div>	
+		</div>
+	</div>
+</div>
+</body>
+</html>
