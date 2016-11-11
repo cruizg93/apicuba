@@ -85,7 +85,7 @@ class Aduana():
 			if origin is not '':
 				parent =soup.find(text=origin.upper()).parent
 				before = parent.find_previous_siblings("th")[0]
-				origin = before.text
+				origin = before.text + " - "
 			
 			parent =soup.find(text=destination.upper()).parent
 			before = parent.find_previous_siblings("th")[0]

@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html>
+<html class="no-js">
 <head>
 	<title>API CUBA</title>
 	<meta name="description" content="Get the api information from aduanas cuba, but orgnizable">
    	<meta name="author" content="Cristian Ruiz (cruizg93)">
+   	<link rel="shortcut icon" href="{{url_for('static',filename='img/icon.ico')}}">
 	<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Lobster">
 	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
 	<link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
@@ -27,6 +28,12 @@
   	<script type="text/javascript" src="{{url_for('static',filename='js/main.js')}}"></script>
    	<script type="text/javascript" src="{{url_for('static',filename='js/url.min.js')}}"></script>
    	<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+
+<!-- Data tables imports-->
+	<link rel="stylesheet" type="text/css" href="{{url_for('static',filename='datatables/css/dataTables.bootstrap.min.css')}}"/>
+   	<script type="text/javascript" src="{{url_for('static',filename='datatables/js/dataTableSelect.min.js')}}"></script>
+	<script type="text/javascript" src="{{url_for('static',filename='datatables/js/jqueryDataTable.js')}}"></script>
+	<script type="text/javascript" src="{{url_for('static',filename='datatables/js/semanticDataTable.js')}}"></script>
 </head>
 <body>
 <span id="currentLenguage" style="visibility: hidden;">{{_('en')}}</span>
@@ -94,7 +101,55 @@
 		</div>
 		<div class="row" >
 			<div class="col-xs-24" id="dataTable">
-				
+				<h1 id="cities"></h1>
+				<table id="apitable" name="apitable" class="table table-striped table-bordered" style="width: 100%"> 
+        			<thead>
+        				<tr>
+        					<th rowspan="2"">
+        						<div align="center">No</div>
+    						</th>
+    						<th rowspan="2">
+    							<div align="center">Numero vuelo / Matricula</div>
+							</th>
+							<th colspan="2">
+								<div align="center">Origen</div>
+							</th>
+							<th colspan="2">
+								<div align="center">Destino</div>
+							</th>
+							<th colspan="2">
+								<div align="center">Entran al pais</div>
+							</th>
+							<th colspan="2">
+								<div align="center">En transito</div>
+							</th>
+							<th rowspan="2">
+								<div align="center">Total en el vuelo</div>
+							</th>
+							<th rowspan="2">
+								<div align="center">
+									Aceptados Fecha  
+									<div style="POSITION: absolute"></div>
+									hora
+								</div>
+							</th>
+							<th rowspan="2">
+								<div align="center">Errores</div>
+							</th>
+						</tr>
+						<tr>
+						    <th >
+						      <div align="center">Aeropuerto</div></th><th>
+						      <div align="center">Fecha/Hora</div></th><th>
+						      <div align="center">Aeropuerto</div></th><th>
+						      <div align="center">Fecha/Hora</div></th><th>
+						      <div align="center">Tripulantes</div></th><th>
+						      <div align="center">Pasajeros</div></th><th>
+						      <div align="center">Tripulantes</div></th><th>
+						      <div align="center">Pasajeros</div></th>
+						  </tr>
+					</thead>
+				</table>        
 			</div>	
 		</div>
 	</div>

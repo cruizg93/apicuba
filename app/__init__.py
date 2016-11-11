@@ -46,17 +46,14 @@ def getContent():
         scrape = json.loads(aduana.getContent(dateFrom,dateTo,cityFrom,cityTo))
         cities = json.loads(scrape['cities'])
 
-        myhtml = "<h1>"+str(cities['origin'])+"-"+str(cities['destination'])+"</h1>"
-        myhtml += '<table class="table table-striped table-bordered">' 
-        myhtml +='<thead><tr><th rowspan="2" width="19"><strong><div align="center">No</div></strong></th><th rowspan="2"><strong><div align="center">Numero vuelo / Matricula</div></strong></th><th colspan="2"><strong><div align="center">Origen</div></strong></th><th colspan="2"><strong><div align="center">Destino</div></strong></th><th colspan="2"><strong><div align="center">Entran al pais</div></strong></th><th colspan="2"><strong><div align="center">En transito</div></strong></th><th rowspan="2" width="51"><strong><div align="center">Total en el vuelo</div></strong></th><th rowspan="2" width="51"><div align="center"><strong>Aceptados Fecha </strong> <div style="POSITION: absolute"></div><strong>/hora</strong></div></th><th rowspan="2" width="56"><strong><div align="center">Errores</div></strong></th></tr></thead>'
-        myhtml +='<tbody>'
-        myhtml += scrape['rows']
-        myhtml += '</tbody></table>'
+        myhtml = "<tbody>"
+        myhtml += scrape['rows'].replace('th','td')
+        myhtml += "</tbody>"
     except Exception as e:
         print("Error")
         print(e)
 
-    return myhtml
+    return json.dumps({'rows':myhtml,'cities':str(cities['origin'])+str(cities['destination'])})
 
 @app.route('/i18n',methods=['GET','POST'])
 def setLanguage():

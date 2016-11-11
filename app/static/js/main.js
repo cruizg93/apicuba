@@ -101,7 +101,11 @@ function getConsult(){
         type: 'POST',
         data: data,
         success: function(response) {
-        	$("#dataTable").html(response);
+            data = JSON.parse(response);
+            $("#apitable tbody").html("");
+        	$("#apitable").append(data.rows);
+            $("#apitable").dataTable();
+            $('#cities').html(data.cities);
             hideSpiner();
         },
         error: function(error) {
@@ -191,4 +195,26 @@ function showSpiner(){
 
 function hideSpiner(){
     $("#spiner").css('display','none');
+}
+
+function renderTable(tableId){
+    var table = $(tableId)
+    $(tableId).dataTable();
+    /*if ( $.fn.dataTable.isDataTable(tableId) ) {
+        table.destroy();
+        table.DataTable( {
+            select: true,
+            lengthChange: false
+        } ).on( 'select', function ( e, dt, type, indexes ) {
+            alert('on');
+        } );
+    }else {
+        table.DataTable( {
+            select: true,
+            lengthChange: false
+        } ).on( 'select', function ( e, dt, type, indexes ) {
+            alert('on');
+        } );
+    }*/
+    
 }
