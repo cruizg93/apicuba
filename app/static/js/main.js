@@ -91,7 +91,12 @@ $(document).ready(function(){
         }
         $("#lang_code").val(language);
         $('#languageForm').submit();
-    });s
+    });
+
+    $('#myTabs a').click(function (e) {
+      e.preventDefault()
+      $(this).tab('show')
+    });
 });
 
 
