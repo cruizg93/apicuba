@@ -10,4 +10,4 @@ def get_locale():
     elif session.get('lang_code') == 'en':
     	return 'en'
     else:
-    	return 'es' #request.accept_languages.best_match(LANGUAGES.keys())
+    	return request.accept_languages.best_match(LANGUAGES.keys())
