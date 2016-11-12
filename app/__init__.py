@@ -53,7 +53,7 @@ def getContent():
         print("Error")
         print(e)
 
-    return json.dumps({'rows':myhtml,'cities':str(cities['origin'])+str(cities['destination'])})
+    return json.dumps({'rows':myhtml,'chartData':scrape['chartData'],'cities':str(cities['origin'])+str(cities['destination'])})
 
 @app.route('/i18n',methods=['GET','POST'])
 def setLanguage():

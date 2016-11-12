@@ -22,6 +22,12 @@
 		h2{text-align: center;}
 		img{width: 50px;}
 
+		@media (min-width: 1200px) {
+		    .container{
+		        max-width: 1500px;
+		        width: 90% !important;
+		    }
+		}
 	</style>
 	<script type="text/javascript" src="{{url_for('static',filename='js/jquery-3.1.1.min.js')}}"></script>
   	<script type="text/javascript" src="{{url_for('static',filename='js/spin.min.js')}}"></script>
@@ -34,124 +40,129 @@
    	<script type="text/javascript" src="{{url_for('static',filename='datatables/js/dataTableSelect.min.js')}}"></script>
 	<script type="text/javascript" src="{{url_for('static',filename='datatables/js/jqueryDataTable.js')}}"></script>
 	<script type="text/javascript" src="{{url_for('static',filename='datatables/js/semanticDataTable.js')}}"></script>
+
+<!--Chart.js-->
+	<script type="text/javascript" src="{{url_for('static',filename='js/Chart.min.js')}}"></script>
+	
 </head>
 <body>
 <span id="currentLenguage" style="visibility: hidden;">{{_('en')}}</span>
-<div class="container-fluid">
-	<ul class="nav nav-pills">
+<ul class="nav nav-pills">
 		<li>
 			<a href="#">Cristian Ruiz</a>
 		</li>
 		<li class="pull-right">
 			<a href="#">@Cruizg93</a>
 		</li>
-	</ul>	
-	<div class="container">
-		<div class="row">
-			<div class="col-xs-12 panel panel-login">
-				<div class="pull-right">
-					<form id="languageForm" action="/i18n" method="post">
-						<input name="toggle_i18n" id="toggle_i18n" type="checkbox" checked data-toggle="toggle" data-on="<img src='{{url_for('static',filename='img/us.png')}}' style='width:20px;'/>" data-off="<img 
-					src='{{url_for('static',filename='img/cuban.ico')}}' style='width:20px;'/>">
-						<input type="hidden" name="lang_code" id="lang_code">
-					</form>
-				</div>
-				<H2><img src="{{url_for('static',filename='img/us.png')}}"/>   API CUBA   <img src="{{url_for('static',filename='img/cuban.ico')}}"/></H2>
-				<form action="" method="POST" name="apiForm" id="apiForm" autocomplete="off" >
-					<div class="form-group row">
-						<label for="dateFrom" class="col-sm-2 col-form-label">*{{_('From')}}:</label>
-						<div class="col-sm-4"><input class="form-control" type="date" name="dateFrom" placeholder="desde" id="dateFrom" /></div>
-						<label for="dateTo" class="col-sm-2 col-form-label">*{{_('To')}}:</label>
-						<div class="col-sm-4"><input class="form-control" type="date" name="dateTo" placeholder="hasta" id="dateTo"  /></div>
-					</div>
-					 <div class="form-group row">
-						<label for="cityFrom" class="col-sm-2 col-form-label">{{_('City From')}}:</label>
-						<div class="col-sm-4"><input class="form-control" type="text" name="cityFrom" placeholder="TPA" id="cityFrom"></div>
-						<label for="cityFrom" class="col-sm-2 col-form-label">*{{_('City To')}}:</label>
-						<div class="col-sm-4">
-							<select id="cityTo" name="cityTo" title="Seleccionar Puerto de la b&amp;uacutesqueda" datasrc="" class="form-control">
-			                    <option value="hav">HAV - Habana</option>
-			                    <option value="vra">VRA - Varadero</option>
-			                    <option value="snu">SNU - Santa Clara</option>
-			                    <option value="cfg">CFG - Cienfuegos</option>
-			                    <option value="avi">AVI - Ciego Avila</option>
-			                    <option value="ccc">CCC - Cayo Coco</option>
-			                    <option value="cyo">CYO - Cayo Largo</option>
-			                    <option value="cmw">CMW - Camaguey</option>
-			                    <option value="hog">HOG - Holguin</option>
-			                    <option value="mzo">MZO - Manzanillo</option>
-			                    <option value="scu">SCU - Santiago Cuba</option>
-			               </select>
-			            </div>
-					</div>
-					<div class="spiner" id="spiner"></div>
-					<div class="form-group row">
-						<div class="col-sm-12">
-							<button type="button" id="btnSearch" class="btn btn-primary">{{_('Search')}}</button>
-						</div>
-					</div>
+	</ul>
+<div class="container">
+	<div class="row">
+		<div class="col-xs-12 panel panel-login">
+			<div class="pull-right">
+				<form id="languageForm" action="/i18n" method="post">
+					<input name="toggle_i18n" id="toggle_i18n" type="checkbox" checked data-toggle="toggle" data-on="<img src='{{url_for('static',filename='img/us.png')}}' style='width:20px;'/>" data-off="<img 
+				src='{{url_for('static',filename='img/cuban.ico')}}' style='width:20px;'/>">
+					<input type="hidden" name="lang_code" id="lang_code">
 				</form>
+			</div>
+			<H2><img src="{{url_for('static',filename='img/us.png')}}"/>   API CUBA   <img src="{{url_for('static',filename='img/cuban.ico')}}"/></H2>
+			<form action="" method="POST" name="apiForm" id="apiForm" autocomplete="off" >
+				<div class="form-group row">
+					<label for="dateFrom" class="col-sm-2 col-form-label">*{{_('From')}}:</label>
+					<div class="col-sm-4"><input class="form-control" type="date" name="dateFrom" placeholder="desde" id="dateFrom" /></div>
+					<label for="dateTo" class="col-sm-2 col-form-label">*{{_('To')}}:</label>
+					<div class="col-sm-4"><input class="form-control" type="date" name="dateTo" placeholder="hasta" id="dateTo"  /></div>
+				</div>
+				 <div class="form-group row">
+					<label for="cityFrom" class="col-sm-2 col-form-label">{{_('City From')}}:</label>
+					<div class="col-sm-4"><input class="form-control" type="text" name="cityFrom" placeholder="TPA" id="cityFrom"></div>
+					<label for="cityFrom" class="col-sm-2 col-form-label">*{{_('City To')}}:</label>
+					<div class="col-sm-4">
+						<select id="cityTo" name="cityTo" title="Seleccionar Puerto de la b&amp;uacutesqueda" datasrc="" class="form-control">
+		                    <option value="hav">HAV - Habana</option>
+		                    <option value="vra">VRA - Varadero</option>
+		                    <option value="snu">SNU - Santa Clara</option>
+		                    <option value="cfg">CFG - Cienfuegos</option>
+		                    <option value="avi">AVI - Ciego Avila</option>
+		                    <option value="ccc">CCC - Cayo Coco</option>
+		                    <option value="cyo">CYO - Cayo Largo</option>
+		                    <option value="cmw">CMW - Camaguey</option>
+		                    <option value="hog">HOG - Holguin</option>
+		                    <option value="mzo">MZO - Manzanillo</option>
+		                    <option value="scu">SCU - Santiago Cuba</option>
+		               </select>
+		            </div>
+				</div>
+				<div class="spiner" id="spiner"></div>
 				<div class="form-group row">
 					<div class="col-sm-12">
-						<h4>*{{_('Mandatory fields -- Field [TO] it can not be later than tomorrow')}}</h4>
-						<label class="" style="color:red;font-weight: bold;" id="errorMsg"></label>
+						<button type="button" id="btnSearch" class="btn btn-primary">{{_('Search')}}</button>
 					</div>
+				</div>
+			</form>
+			<div class="form-group row">
+				<div class="col-sm-12">
+					<h4>*{{_('Mandatory fields -- Field [TO] it can not be later than tomorrow')}}</h4>
+					<label class="" style="color:red;font-weight: bold;" id="errorMsg"></label>
 				</div>
 			</div>
 		</div>
-		<div class="row" >
-			<div class="col-xs-24" id="dataTable">
-				<h1 id="cities"></h1>
-				<table id="apitable" name="apitable" class="table table-striped table-bordered" style="width: 100%"> 
-        			<thead>
-        				<tr>
-        					<th rowspan="2"">
-        						<div align="center">No</div>
-    						</th>
-    						<th rowspan="2">
-    							<div align="center">Numero vuelo / Matricula</div>
-							</th>
-							<th colspan="2">
-								<div align="center">Origen</div>
-							</th>
-							<th colspan="2">
-								<div align="center">Destino</div>
-							</th>
-							<th colspan="2">
-								<div align="center">Entran al pais</div>
-							</th>
-							<th colspan="2">
-								<div align="center">En transito</div>
-							</th>
-							<th rowspan="2">
-								<div align="center">Total en el vuelo</div>
-							</th>
-							<th rowspan="2">
-								<div align="center">
-									Aceptados Fecha  
-									<div style="POSITION: absolute"></div>
-									hora
-								</div>
-							</th>
-							<th rowspan="2">
-								<div align="center">Errores</div>
-							</th>
-						</tr>
-						<tr>
-						    <th >
-						      <div align="center">Aeropuerto</div></th><th>
-						      <div align="center">Fecha/Hora</div></th><th>
-						      <div align="center">Aeropuerto</div></th><th>
-						      <div align="center">Fecha/Hora</div></th><th>
-						      <div align="center">Tripulantes</div></th><th>
-						      <div align="center">Pasajeros</div></th><th>
-						      <div align="center">Tripulantes</div></th><th>
-						      <div align="center">Pasajeros</div></th>
-						  </tr>
-					</thead>
-				</table>        
-			</div>	
-		</div>
+	</div>
+	<div class="row">
+		<h1 id="cities"></h1>
+		<canvas id="myChart" class="col-xs-24"></canvas>
+	</div>
+	<div class="row" >
+		<div class="col-xs-24" id="dataTable">	
+			<table id="apitable" name="apitable" class="table table-striped table-bordered" style="width: 100%"> 
+    			<thead>
+    				<tr>
+    					<th rowspan="2"">
+    						<div align="center">No</div>
+						</th>
+						<th rowspan="2">
+							<div align="center">Flight Number  </div>
+						</th>
+						<th colspan="2">
+							<div align="center">Origin  </div>
+						</th>
+						<th colspan="2">
+							<div align="center">Destination  </div>
+						</th>
+						<th colspan="2">
+							<div align="center">Coming  </div>
+						</th>
+						<th colspan="2">
+							<div align="center">On way  </div>
+						</th>
+						<th rowspan="2">
+							<div align="center">Total in flight  </div>
+						</th>
+						<th rowspan="2">
+							<div align="center">
+								Accepted - Date    
+								<div style="POSITION: absolute"></div>
+								Time  
+							</div>
+						</th>
+						<th rowspan="2">
+							<div align="center">Errors  </div>
+						</th>
+					</tr>
+					<tr>
+					    <th >
+					      <div align="center">Airport  </div></th><th>
+					      <div align="center">Date/Time  </div></th><th>
+					      <div align="center">Airport  </div></th><th>
+					      <div align="center">Date/Time  </div></th><th>
+					      <div align="center">Crew  </div></th><th>
+					      <div align="center">Passengers  </div></th><th>
+					      <div align="center">Crew  </div></th><th>
+					      <div align="center">Passengers  </div></th>
+					  </tr>
+				</thead>
+			</table>        
+		</div>	
 	</div>
 </div>
 </body>

@@ -1,8 +1,11 @@
+var myBarChart = null;
+
 $(document).ready(function(){
     //$("#currentLenguage") has the value of the actual lenguage, 
-    //loaded by babel and it placed in every translate .po file
-    // with the tag ID of the orginal lenguage wich is 'en'
+    //loaded by pybabel, and it can be find in every translate file ( .po )
+    // with the tag 'msgid' and with value of the orginal lenguage wich is 'en'
     var lang = $("#currentLenguage").html();
+
     
     if(lang=='en'){
         $('#toggle_i18n').prop( "checked", true );
@@ -88,7 +91,7 @@ $(document).ready(function(){
         }
         $("#lang_code").val(language);
         $('#languageForm').submit();
-    });
+    });s
 });
 
 
@@ -104,8 +107,13 @@ function getConsult(){
             data = JSON.parse(response);
             $("#apitable tbody").html("");
         	$("#apitable").append(data.rows);
+
+            //transform in data table object
             $("#apitable").dataTable();
             $('#cities').html(data.cities);
+            
+            var canvas = $("#myChart");
+            drawChart(canvas,data.chartData)
             hideSpiner();
         },
         error: function(error) {
@@ -197,24 +205,46 @@ function hideSpiner(){
     $("#spiner").css('display','none');
 }
 
-function renderTable(tableId){
-    var table = $(tableId)
-    $(tableId).dataTable();
-    /*if ( $.fn.dataTable.isDataTable(tableId) ) {
-        table.destroy();
-        table.DataTable( {
-            select: true,
-            lengthChange: false
-        } ).on( 'select', function ( e, dt, type, indexes ) {
-            alert('on');
-        } );
-    }else {
-        table.DataTable( {
-            select: true,
-            lengthChange: false
-        } ).on( 'select', function ( e, dt, type, indexes ) {
-            alert('on');
-        } );
-    }*/
-    
+function drawChart(canvas,data){
+    if(myBarChart!=null){
+        myBarChart.destroy();
+    }
+
+    var ctx = canvas[0].getContext("2d");
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    labels = []
+    passengersCount = []
+    for(var i = 0;i< $(data).length;i++){
+        //if the data[1] has length 3 that means the date is coming in the array too
+        //because the search was for more than one day
+        if(data[i].length==3){
+            labels.push(data[i][0]+" - "+data[i][2]);    
+        }else{
+            labels.push(data[i][0]);    
+        }
+        passengersCount.push(data[i][1]);
+    }   
+    myBarChart = new Chart(canvas, {
+        type: 'bar',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'Passengers per Flight',
+                data: passengersCount,
+                backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                borderColor: 'rgba(54, 162, 235, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero:true
+                    }
+                }]
+            }
+        }
+    });
+
 }

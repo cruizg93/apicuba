@@ -1,3 +1,4 @@
+import numpy as np
 import traceback
 import requests
 import sys
@@ -41,18 +42,25 @@ class Aduana():
 			#test = open('test.html')
 			#soup = BeautifulSoup(test,"html.parser")
 			
-			initialRow = 2
-			originDateCel = 3
-			destinationDateCel = 5
+			#cel index
+			flighNumer = 1
 			fromCityCel = 2
+			originDateCel = 3
 			toCityCel = 4
+			destinationDateCel = 5
+			passengers = 7
+
+			#the 2 first rows are the header
+			initialRow = 2
 			headerSkiperCont = 0
 			rows = ""
-		
+			
+			#even = flighNumber | odd = TotalPassenger
+			chartData = list()
 			dateFrom = self.getFormatDate(dateFrom)
 			dateTo = self.getFormatDate(dateTo)
 			soup = soup.find("div")	
-			for row in soup.findAll("tr"):
+			for i,row in enumerate(soup.findAll("tr")):
 				#skip header of the table
 				if headerSkiperCont < initialRow:
 					headerSkiperCont += 1
@@ -66,14 +74,58 @@ class Aduana():
 					if cityFrom !='':
 						if row.findAll("th")[fromCityCel].text == str(cityFrom):
 							rows += str(row)
-					else:
-						rows+=str(row)
+							#try catch placed to make sure the collection of the chartData won't kill the core process
+							try:
+								if row.findAll("th")[passengers].text != '-':
+									number = row.findAll("th")[flighNumer].text
+									passengersCount = row.findAll("th")[passengers].text.split(" ")[0]
+									if dateFrom != dateTo:
+										date = row.findAll("th")[destinationDateCel].text.split(" ")[0]
+										chartData.append([number,passengersCount,date])
+									else:
+										chartData.append([number,passengersCount])
 
+									"""
+										This will check and agroup the count of the passengers by flight number
+										but the original table has repeated data so, it won't be precise 
+									if len(chartData)!= 0 and number in chartData[0]:
+										chartData[chartData.index(numeber)]+=passengersCount
+									else:
+										chartData.append([number,passengersCount])
+									"""
+							except Exception as e:	
+								print(e)
+								traceback.print_tb(e.__traceback__)
+					else:						
+						rows+=str(row)
+						#try catch placed to make sure the collection of the chartData won't kill the core process
+						try:
+							if row.findAll("th")[passengers].text != '-':
+								number = row.findAll("th")[flighNumer].text
+								passengersCount = row.findAll("th")[passengers].text.split(" ")[0]
+								if dateFrom != dateTo:
+									date = row.findAll("th")[destinationDateCel].text.split(" ")[0]
+									chartData.append([number,passengersCount,date])
+								else:
+									chartData.append([number,passengersCount])
+
+								"""
+									This will check and agroup the count of the passengers by flight number
+									but the original table has repeated data so, it won't be precise 
+								if len(chartData)!= 0 and number in chartData[0]:
+									chartData[chartData.index(numeber)]+=passengersCount
+								else:
+									chartData.append([number,passengersCount])
+								"""
+						except Exception as e:	
+							print(e)
+							traceback.print_tb(e.__traceback__)
+							
 		except Exception as e:
 			print(e)
 			traceback.print_tb(e.__traceback__)
 
-		return json.dumps({"rows":rows,"cities":self.getCityFullName(cityFrom,cityTo)})
+		return json.dumps({"rows":rows,"chartData":chartData,"cities":self.getCityFullName(cityFrom,cityTo)})
 
 
 	def getCityFullName(self,origin,destination):
