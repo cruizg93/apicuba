@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2016-11-12 20:06-0500\n"
+"POT-Creation-Date: 2016-11-12 19:28-0500\n"
 "PO-Revision-Date: 2016-11-12 04:01-0500\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: es\n"
@@ -18,104 +18,99 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.3.4\n"
 
-#: app/templates/index.html:70
+#: app/static/js/main.js:45
+msgid "The field [to] can not be higher than"
+msgstr "La fecha [Hasta] no puede ser mas alta que"
+
+#: app/static/js/main.js:48
+msgid "The field [to] can not be lower than "
+msgstr "La fecha [Hasta] no puede ser mas baja que"
+
+#: app/static/js/main.js:68
+msgid "The Field [from] can not be higher than"
+msgstr "La fecha [Desde] no puede ser mas alta que"
+
+#: app/templates/index.html:68
 msgid "language"
 msgstr "lenguaje"
 
-#: app/templates/index.html:75
+#: app/templates/index.html:73
 msgid "From"
 msgstr "Desde"
 
-#: app/templates/index.html:77
+#: app/templates/index.html:75
 msgid "To"
 msgstr "Hasta"
 
-#: app/templates/index.html:81
+#: app/templates/index.html:79
 msgid "City From"
 msgstr "Ciudad Origen"
 
-#: app/templates/index.html:83
+#: app/templates/index.html:81
 msgid "City To"
 msgstr "Ciudad Destino"
 
-#: app/templates/index.html:103
+#: app/templates/index.html:101
 msgid "Search"
 msgstr "Consultar"
 
-#: app/templates/index.html:109
+#: app/templates/index.html:107
 msgid "Mandatory fields -- Field [TO] it can not be later than tomorrow"
 msgstr "Campos Obligatorios -- Campo [HASTA] no puede ser mas tarde que mañana"
 
-#: app/templates/index.html:119
-msgid "List"
-msgstr "Lista"
-
-#: app/templates/index.html:122
-msgid "Chart"
-msgstr "Grafica de Barras"
-
-#: app/templates/index.html:135
+#: app/templates/index.html:133
 msgid "Flight Number"
 msgstr "Numero Vuelo"
 
-#: app/templates/index.html:138
+#: app/templates/index.html:136
 msgid "Origin"
 msgstr "Origen"
 
-#: app/templates/index.html:141
+#: app/templates/index.html:139
 msgid "Destination"
 msgstr "Destino"
 
-#: app/templates/index.html:144
+#: app/templates/index.html:142
 msgid "Coming"
 msgstr "Entran Al Pais"
 
-#: app/templates/index.html:147
+#: app/templates/index.html:145
 msgid "On way"
 msgstr "En transito"
 
-#: app/templates/index.html:150
+#: app/templates/index.html:148
 msgid "Total in flight"
 msgstr "Total El El Vuelo"
 
-#: app/templates/index.html:154
+#: app/templates/index.html:152
 msgid "Accepted - Date"
 msgstr "Aceptados - Fecha"
 
-#: app/templates/index.html:156
+#: app/templates/index.html:154
 msgid "Time"
 msgstr "Hora"
 
-#: app/templates/index.html:160
+#: app/templates/index.html:158
 msgid "Errors"
 msgstr "Errores"
 
-#: app/templates/index.html:165 app/templates/index.html:167
+#: app/templates/index.html:163 app/templates/index.html:165
 msgid "Airport"
 msgstr "Aeropuerto"
 
-#: app/templates/index.html:166 app/templates/index.html:168
+#: app/templates/index.html:164 app/templates/index.html:166
 msgid "Date/Time"
 msgstr "Fecha/Horas"
 
-#: app/templates/index.html:169 app/templates/index.html:171
+#: app/templates/index.html:167 app/templates/index.html:169
 msgid "Crew"
 msgstr "Tripulantes"
 
-#: app/templates/index.html:170 app/templates/index.html:172
+#: app/templates/index.html:168 app/templates/index.html:170
 msgid "Passengers"
 msgstr "Pasajeros"
 
-#: app/templates/index.html:185
+#: app/templates/index.html:183
 msgid "en"
 msgstr "es"
-
-#~ msgid "The field [to] can not be higher than"
-#~ msgstr "La fecha [Hasta] no puede ser mas alta que"
-
-#~ msgid "The field [to] can not be lower than "
-#~ msgstr "La fecha [Hasta] no puede ser mas baja que"
-
-#~ msgid "The Field [from] can not be higher than"
-#~ msgstr "La fecha [Desde] no puede ser mas alta que"
 

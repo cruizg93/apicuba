@@ -1,12 +1,12 @@
+var hasErrors = false;
 var myBarChart = null;
+var lang = "";
 
 $(document).ready(function(){
     //$("#currentLenguage") has the value of the actual lenguage, 
-    //loaded by pybabel, and it can be find in every translate file ( .po )
-    // with the tag 'msgid' and with value of the orginal lenguage wich is 'en'
-    var lang = $("#currentLenguage").html();
-
-    
+    //loaded by babel and it placed in every translate .po file
+    // with the tag ID of the orginal lenguage wich is 'en'
+    lang = $("#currentLenguage").html();
     if(lang=='en'){
         $('#toggle_i18n').prop( "checked", true );
     }else{
@@ -22,52 +22,16 @@ $(document).ready(function(){
     
     //trigger for button search
     $("#btnSearch").click(function(){
-		getConsult();
-	});
+        getConsult();
+    });
 
 
     $("#dateTo").change(function(){
-        var tomorrow = new Date();
-        tomorrow.setDate(tomorrow.getDate() + 1);
-        tomorrow.setHours(0,0,0,0);
-
-        var current = new Date($("#dateTo").val()); 
-        current.setDate(current.getDate()+1);
-        current.setHours(0,0,0,0);
-        
-        var from = new Date($("#dateFrom").val());
-        from.setDate(from.getDate()+1);
-        from.setHours(0,0,0,0);
-
-        if(current>tomorrow){
-            $("#errorMsg").html("La fecha hasta no puede ser mayor a "+String(tomorrow.getMonth()+1)+"/"+String(tomorrow.getDate())+"/"+String(tomorrow.getFullYear()));
-        }else{
-            $("#errorMsg").html("");
-        }
-        if(current<from){
-            $("#errorMsg").html("La fecha hasta no puede ser menor a "+String(from.getMonth()+1)+"/"+String(from.getDate())+"/"+String(from.getFullYear()));
-        }else{
-            $("#errorMsg").html("");
-        }
-
+        validateDateFields(1);
     });
 
     $("#dateFrom").change(function(){
-       
-        var current = new Date($("#dateTo").val()); 
-        current.setDate(current.getDate()+1);
-        current.setHours(0,0,0,0);
-        
-        var from = new Date($("#dateFrom").val());
-        from.setDate(from.getDate()+1);
-        from.setHours(0,0,0,0);
-
-        if(current<from){
-            $("#errorMsg").html("La fecha Desde no puede ser mayor a "+String(from.getMonth()+1)+"/"+String(from.getDate())+"/"+String(from.getFullYear()));
-        }else{
-            $("#errorMsg").html("");
-        }
-
+       validateDateFields(0);
     });
 
 
@@ -93,15 +57,73 @@ $(document).ready(function(){
         $('#languageForm').submit();
     });
 
-    $('#myTabs a').click(function (e) {
-      e.preventDefault()
-      $(this).tab('show')
+    $("#apitable").dataTable({
+        "iDisplayLength": 100
     });
 });
 
+/**************************************
+/trigger values [0=From][1=To]
+***************************************/
+function validateDateFields(triggerFrom){
+        var tomorrow = new Date();
+        tomorrow.setDate(tomorrow.getDate() + 1);
+        tomorrow.setHours(0,0,0,0);
 
+        var current = new Date($("#dateTo").val()); 
+        current.setDate(current.getDate()+1);
+        current.setHours(0,0,0,0);
+        
+        var from = new Date($("#dateFrom").val());
+        from.setDate(from.getDate()+1);
+        from.setHours(0,0,0,0);
+
+
+        if(triggerFrom==0){
+            if(current<from){
+                var msg = "";
+                if(lang=='es'){
+                    msg = "La fecha [Desde] no puede ser mayor a ";
+                }else{
+                    msg = "The field [From] can not be later than "
+                }
+                hasErrors = true;
+                $("#errorMsg").html(msg+String(current.getMonth()+1)+"/"+String(current.getDate())+"/"+String(current.getFullYear()));
+            }else{
+                hasErrors = false;
+                $("#errorMsg").html("");
+            }
+        }else if(triggerFrom == 1){
+            if(current>tomorrow){
+                var msg = "";
+                if(lang=='es'){
+                    msg = "La fecha [hasta] no puede ser mayor a ";
+                }else {
+                    msg = "The field [To] can not be later than "
+                }
+                $("#errorMsg").html(msg+String(tomorrow.getMonth()+1)+"/"+String(tomorrow.getDate())+"/"+String(tomorrow.getFullYear()));
+            }else if(current<from){
+                var msg = "";
+                if(lang=='es'){
+                    msg = "La fecha [hasta] no puede ser menor a ";
+                }else {
+                    msg = "The field [To] can not be early than "
+                }
+                hasErrors = true;
+                $("#errorMsg").html(msg+String(from.getMonth()+1)+"/"+String(from.getDate())+"/"+String(from.getFullYear()));
+            }else{
+                hasErrors = false;
+                $("#errorMsg").html("");
+            }
+        }
+
+}
 
 function getConsult(){
+    //validate if the for hasError
+    if(hasErrors==true){
+        return false;
+    }
     var data = $( "#apiForm" ).serialize();
     showSpiner();
     $.ajax({
@@ -111,11 +133,8 @@ function getConsult(){
         success: function(response) {
             data = JSON.parse(response);
             $("#apitable tbody").html("");
-        	$("#apitable").append(data.rows);
-
-            //transform in data table object
-            $("#apitable").dataTable();
-            $('#cities').html(data.cities);
+            $("#apitable").append(data.rows);
+            $('.cities').html(data.cities);
             
             var canvas = $("#myChart");
             drawChart(canvas,data.chartData)
@@ -210,6 +229,7 @@ function hideSpiner(){
     $("#spiner").css('display','none');
 }
 
+
 function drawChart(canvas,data){
     if(myBarChart!=null){
         myBarChart.destroy();
@@ -251,5 +271,4 @@ function drawChart(canvas,data){
             }
         }
     });
-
 }

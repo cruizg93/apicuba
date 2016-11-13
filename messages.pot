@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2016-11-12 18:43-0500\n"
+"POT-Creation-Date: 2016-11-12 20:06-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,87 +17,95 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.3.4\n"
 
-#: app/templates/index.html:67
+#: app/templates/index.html:70
 msgid "language"
 msgstr ""
 
-#: app/templates/index.html:72
+#: app/templates/index.html:75
 msgid "From"
 msgstr ""
 
-#: app/templates/index.html:74
+#: app/templates/index.html:77
 msgid "To"
 msgstr ""
 
-#: app/templates/index.html:78
+#: app/templates/index.html:81
 msgid "City From"
 msgstr ""
 
-#: app/templates/index.html:80
+#: app/templates/index.html:83
 msgid "City To"
 msgstr ""
 
-#: app/templates/index.html:100
+#: app/templates/index.html:103
 msgid "Search"
 msgstr ""
 
-#: app/templates/index.html:106
+#: app/templates/index.html:109
 msgid "Mandatory fields -- Field [TO] it can not be later than tomorrow"
 msgstr ""
 
-#: app/templates/index.html:132
-msgid "Flight Number"
+#: app/templates/index.html:119
+msgid "List"
+msgstr ""
+
+#: app/templates/index.html:122
+msgid "Chart"
 msgstr ""
 
 #: app/templates/index.html:135
-msgid "Origin"
+msgid "Flight Number"
 msgstr ""
 
 #: app/templates/index.html:138
-msgid "Destination"
+msgid "Origin"
 msgstr ""
 
 #: app/templates/index.html:141
-msgid "Coming"
+msgid "Destination"
 msgstr ""
 
 #: app/templates/index.html:144
-msgid "On way"
+msgid "Coming"
 msgstr ""
 
 #: app/templates/index.html:147
+msgid "On way"
+msgstr ""
+
+#: app/templates/index.html:150
 msgid "Total in flight"
 msgstr ""
 
-#: app/templates/index.html:151
+#: app/templates/index.html:154
 msgid "Accepted - Date"
 msgstr ""
 
-#: app/templates/index.html:153
+#: app/templates/index.html:156
 msgid "Time"
 msgstr ""
 
-#: app/templates/index.html:157
+#: app/templates/index.html:160
 msgid "Errors"
 msgstr ""
 
-#: app/templates/index.html:162 app/templates/index.html:164
+#: app/templates/index.html:165 app/templates/index.html:167
 msgid "Airport"
 msgstr ""
 
-#: app/templates/index.html:163 app/templates/index.html:165
+#: app/templates/index.html:166 app/templates/index.html:168
 msgid "Date/Time"
 msgstr ""
 
-#: app/templates/index.html:166 app/templates/index.html:168
+#: app/templates/index.html:169 app/templates/index.html:171
 msgid "Crew"
 msgstr ""
 
-#: app/templates/index.html:167 app/templates/index.html:169
+#: app/templates/index.html:170 app/templates/index.html:172
 msgid "Passengers"
 msgstr ""
 
-#: app/templates/index.html:182
+#: app/templates/index.html:185
 msgid "en"
 msgstr ""
 
