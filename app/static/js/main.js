@@ -1,7 +1,7 @@
 var hasErrors = false;
 var myBarChart = null;
 var lang = "";
-
+var apiTable;
 $(document).ready(function(){
     //$("#currentLenguage") has the value of the actual lenguage, 
     //loaded by babel and it placed in every translate .po file
@@ -57,9 +57,7 @@ $(document).ready(function(){
         $('#languageForm').submit();
     });
 
-    $("#apitable").dataTable({
-        "iDisplayLength": 100
-    });
+
 });
 
 /**************************************
@@ -132,10 +130,21 @@ function getConsult(){
         data: data,
         success: function(response) {
             data = JSON.parse(response);
-            $("#apitable tbody").html("");
-            $("#apitable").append(data.rows);
-            $('.cities').html(data.cities);
+            thead = $("#apitable thead").html();
+            tbody = data.rows;
+
+            $("#apitable").dataTable().fnDestroy();
+            $("#apitable").html("<thead>"+String(thead)+"</thead>"+String(tbody));
+            $("#apitable").append();
             
+            $('.cities').html(data.cities);
+
+
+            apiTable = $("#apitable").dataTable({
+                "iDisplayLength": 100,
+                "bDestroy": true,
+            });
+
             var canvas = $("#myChart");
             drawChart(canvas,data.chartData)
             hideSpiner();

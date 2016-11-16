@@ -4,6 +4,7 @@ import requests
 import sys
 import urllib3
 import json
+from flask.ext.babel import gettext
 from datetime import *
 from bs4 import BeautifulSoup
 class Aduana():
@@ -135,13 +136,23 @@ class Aduana():
 			soup = BeautifulSoup(file,"html.parser")
 			
 			if origin is not '':
-				parent =soup.find(text=origin.upper()).parent
+				cell = soup.find(text=origin.upper())
+				print("cel:",cell)
+				if cell != None:
+					parent =cell.parent
+					before = parent.find_previous_siblings("th")[0]
+					origin = before.text + " - "
+					parent =soup.find(text=destination.upper()).parent
+					before = parent.find_previous_siblings("th")[0]
+					destination = before.text
+				else:
+					origin = gettext('IATA CODE NOT FOUD')
+					destination = " "
+			else:
+				parent =soup.find(text=destination.upper()).parent
 				before = parent.find_previous_siblings("th")[0]
-				origin = before.text + " - "
+				destination = before.text
 			
-			parent =soup.find(text=destination.upper()).parent
-			before = parent.find_previous_siblings("th")[0]
-			destination = before.text
 		except Exception as e:
 			print(e)
 			traceback.print_tb(e.__traceback__)
